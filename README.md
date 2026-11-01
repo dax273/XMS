@@ -2,6 +2,12 @@
 
 > Rethinking the interface of communication.
 
+<p align="center">
+  <img src="XMS-Terminal-Preview.png"
+       alt="XMS Terminal Interface Preview"
+       width="85%">
+</p>
+
 **XMS** is a terminal-first Android messaging application designed to explore a different approach to digital communication — replacing conventional chat interfaces with a minimal, command-driven terminal experience.
 
 Built around a security-focused architecture, XMS aims to combine terminal-based interaction, privacy-oriented communication and end-to-end encryption.
