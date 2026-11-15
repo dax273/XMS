@@ -4,64 +4,111 @@
 
 <p align="center">
   <img src="XMS-Terminal-Preview.png"
-       alt="XMS Terminal Interface Preview"
+       alt="XMS Interface Preview"
        width="85%">
 </p>
 
-**XMS** is a terminal-first Android messaging application designed to explore a different approach to digital communication — replacing conventional chat interfaces with a minimal, command-driven terminal experience.
+**XMS** is an Android communication system built around controlled connections and ephemeral, session-based communication.
 
-Built around a security-focused architecture, XMS aims to combine terminal-based interaction, privacy-oriented communication and end-to-end encryption.
+It explores an alternative approach to digital communication, prioritizing privacy, minimal data retention and user control.
 
-**Project Status:** Under Active Development
-
----
-
-## Vision
-
-XMS aims to create a messaging environment where the terminal itself becomes the primary interface for communication.
-
-Rather than following conventional messaging application designs, XMS explores a more minimal, technical and distinctive interaction model.
-
-Its long-term vision is built around three principles:
-
-- **Terminal-First Interaction:** Communication through a custom terminal interface.
-- **Privacy & Security:** A security-focused architecture with end-to-end encryption as a core objective.
-- **Minimalism:** A distraction-free interface built around simplicity and functionality.
+**Project Status:** Development temporarily paused  
+**Planned Resumption:** December 20, 2026
 
 ---
 
-## Core Objectives
+## Overview
 
-- Terminal-based messaging and command interaction.
-- User identity and connection management.
-- Passwordless email authentication.
-- Secure session management.
+XMS is built around three principles:
+
+- **Privacy:** Minimize persistent data and unnecessary information retention.
+- **Control:** Give users explicit control over establishing and terminating connections.
+- **Simplicity:** Provide a focused communication experience without conventional messaging patterns.
+
+---
+
+## V1 — Ephemeral Communication
+
+V1 establishes the foundational communication architecture of XMS.
+
+Its objective is to enable temporary, synchronous communication without maintaining persistent message histories.
+
+- One-to-one communication through established Secure Links.
+- Both participants must be online to communicate.
+- Messages are held in application memory (RAM) during an active session.
+- Real-time message delivery through Supabase Realtime.
+- No persistent message storage or conversation history.
+- No offline message queue or message recovery.
+- Temporary message state is cleared when the session ends.
+- TLS-protected communication and backend-enforced access controls.
+
+**V1 Security Model:** TLS protects data in transit. V1 does not implement end-to-end encryption.
+
+---
+
+## V2 — End-to-End Encryption
+
+V2 extends the V1 communication model with end-to-end encryption.
+
+Planned capabilities include:
+
 - Device identity and cryptographic key management.
-- End-to-end encrypted communication.
-- Privacy-oriented messaging architecture.
+- Secure key exchange.
+- Identity verification.
+- End-to-end message encryption and decryption.
+- Integration of established cryptographic protocols.
+- Expanded communication and message synchronization capabilities.
+
+The cryptographic implementation will rely on established protocols and reviewed libraries rather than proprietary encryption algorithms.
+
+**Status:** Planned
 
 ---
 
-## Security & Encryption
+## Core Architecture
 
-Security is a fundamental architectural objective of XMS.
-
-The long-term goal is to implement **End-to-End Encryption (E2EE)**, ensuring that message contents can only be accessed by the intended communicating devices.
-
-The planned cryptographic foundation includes:
-
-| Component | Objective |
+| Component | Purpose |
 |---|---|
-| Device Identity | Establish cryptographic identities for individual devices. |
-| Key Management | Securely generate, store and manage cryptographic keys. |
-| Key Exchange | Establish secure shared secrets between communicating devices. |
-| End-to-End Encryption | Encrypt messages before transmission and decrypt them only on authorized recipient devices. |
-| Session Security | Protect authentication sessions and device access. |
-| Identity Verification | Provide mechanisms to verify communicating identities and detect key changes. |
+| Secure Links | Establish and manage user-to-user connections. |
+| Session Management | Manage authentication and active communication sessions. |
+| Real-time Communication | Deliver live communication events. |
+| Memory-based Message Handling | Hold temporary message state during active sessions. |
+| Access Control | Enforce user-specific backend permissions. |
+| Data Retention | Minimize persistent communication data. |
 
-XMS intends to rely on established, reviewed cryptographic protocols and libraries rather than developing proprietary encryption algorithms.
+---
 
-**Current Security Status:** End-to-end encryption is a planned objective. The current prototype does not yet implement encrypted messaging, cryptographic key exchange or production-grade security guarantees.
+## Interaction
+
+XMS provides a custom command interface for connection management.
+
+| Command | Purpose |
+|---|---|
+| `/link` | Initiate a connection request. |
+| `/requests` | View incoming and outgoing requests. |
+| `/grant` | Accept a connection request. |
+| `/deny` | Reject a connection request. |
+| `/cancel` | Cancel an outgoing request. |
+| `/links` | View established Secure Links. |
+| `/unlink` | Terminate a connection. |
+
+---
+
+## Security
+
+Security is a core architectural consideration throughout XMS development.
+
+| Layer | V1 | V2 |
+|---|---|---|
+| Transport Security | TLS | TLS |
+| Authentication | Email OTP | Email OTP |
+| Backend Access Control | Yes | Yes |
+| Ephemeral Message Handling | Yes | Evolved architecture |
+| End-to-End Encryption | Not implemented | Planned |
+| Device Key Management | Not implemented | Planned |
+| Identity Verification | Not implemented | Planned |
+
+XMS does not claim production-grade security or end-to-end encryption in its current implementation.
 
 ---
 
@@ -70,56 +117,76 @@ XMS intends to rely on established, reviewed cryptographic protocols and librari
 | Component | Technology |
 |---|---|
 | Platform | Android |
-| Programming Language | Kotlin |
+| Language | Kotlin |
 | UI Framework | Jetpack Compose |
 | Backend | Supabase |
 | Database | PostgreSQL |
 | Authentication | Supabase Auth |
+| Real-time Infrastructure | Supabase Realtime |
 | Development Environment | Android Studio |
-| Version Control | Git & GitHub |
 
 ---
 
 ## Development Roadmap
 
-### Phase 1 — Terminal Prototype
-- Initial terminal interface.
+### Phase 1 — Initial Foundation
+
+- Terminal interface.
 - Custom command parser.
-- Session management and ViewModel.
-- Simulated demo connection.
+- Session management.
+- Demonstration connection.
 
 **Status:** Completed
 
-### Phase 2 — Backend & Identity Infrastructure
-- Supabase client integration.
+### Phase 2 — Connection Infrastructure
+
 - Passwordless email OTP authentication.
-- Persistent session management.
-- Usernames and profiles.
-- User discovery and connection requests.
-- Push notification foundations.
+- User profiles and identity management.
+- Secure Link request lifecycle.
+- Backend access controls.
+- Real-time connection events.
 
 **Status:** In Progress
 
-### Phase 3 — Cryptographic Foundation
-- Device identity generation.
+| Milestone | Scope | Status |
+|---|---|---|
+| M3.1 | Backend foundation and request lifecycle | Completed |
+| M3.2 | Android connection integration and Realtime | In Progress |
+| M3.3 | Push notification integration | Planned |
+| M3.4 | Application validation | Planned |
+
+### Phase 3 — V1 Communication
+
+- Live one-to-one communication.
+- RAM-based temporary message handling.
+- Session lifecycle management.
+- Message-state cleanup.
+- Communication validation.
+
+**Status:** Planned
+
+### Phase 4 — V2 Cryptographic Foundation
+
+- Device identity.
 - Cryptographic key management.
 - Secure key exchange.
 - Identity verification.
-- Integration of established cryptographic protocols.
 
 **Status:** Planned
 
-### Phase 4 — Encrypted Messaging
-- Actual message transmission.
-- End-to-end encryption and decryption.
-- Secure conversation handling.
+### Phase 5 — V2 Encrypted Communication
+
+- End-to-end encryption.
+- Secure message transmission.
 - Message synchronization.
+- Expanded communication capabilities.
 
 **Status:** Planned
 
-### Phase 5 — Security Hardening & Release
+### Phase 6 — Security Hardening & Release
+
 - Security testing and auditing.
-- Backend and database hardening.
+- Backend hardening.
 - Performance optimization.
 - Release preparation.
 
@@ -129,36 +196,41 @@ XMS intends to rely on established, reviewed cryptographic protocols and librari
 
 ## Visual Identity
 
-XMS follows a terminal-inspired visual language built around AMOLED black, red accents and monospaced typography.
+XMS uses a restrained interface built around AMOLED black, Laser Red accents and monospaced typography.
 
 | Element | Colour | HEX |
 |---|---|---|
-| Primary / Outgoing | Laser Red | `#FF1744` |
-| Incoming Messages | Soft Crimson | `#D50032` |
-| Errors | Bright Scarlet | `#FF3131` |
+| Primary Accent | Laser Red | `#DD2200` |
 | System Output | Muted Grey | `#777777` |
 | Background | AMOLED Black | `#000000` |
 | Dividers | Structure Grey | `#232323` |
-
-The design philosophy emphasizes minimalism, readability and a distinctive terminal experience.
 
 ---
 
 ## Development Philosophy
 
-XMS is being developed incrementally, with an emphasis on understanding the underlying architecture, maintaining clear separation of responsibilities and validating each milestone before moving forward.
+XMS follows a milestone-based development process emphasizing:
 
-AI-assisted development tools may be used throughout the development process, alongside implementation review, testing and architectural decisions.
+- Architectural clarity.
+- Separation of responsibilities.
+- Incremental implementation.
+- Independent backend validation.
+- Deliberate security review.
+- Verified implementation before milestone completion.
+
+AI-assisted development tools are used alongside implementation review and testing.
 
 ---
 
 ## Project Status & Disclaimer
 
-XMS is an experimental software development project and is currently under active development.
+XMS is an experimental software development project.
 
-The existing implementation includes a terminal prototype and Supabase client integration. Authentication, real messaging, end-to-end encryption and production security are still under development or planned.
+The initial interface, authentication foundation and backend connection infrastructure have been developed. Android connection integration and real-time event handling remain in progress.
 
-This repository will evolve as the project progresses.
+V1 ephemeral messaging and V2 end-to-end encrypted communication are development objectives, not completed capabilities.
+
+Development is temporarily paused to prioritize academic examinations, with work planned to resume on **December 20, 2026**.
 
 ---
 
